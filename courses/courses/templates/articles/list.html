@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Самые новые курсы{% endblock %}
+
+{% block content %}
+
+    {% if latest_courses_list %}
+        {% for a in latest_courses_list %}
+            <a href="{% url 'articles:detail' a.id %}"> {{a.course_title}}</a>
+        {% endfor %}
+
+    {% else %}
+        Курсы не найдены
+    {% endif %}
+
+
+{% endblock%}
