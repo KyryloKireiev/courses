@@ -11,7 +11,7 @@ class Course(models.Model):
         return self.course_title
 
     def was_published_resently(self):
-        return self.pub_date >= (timezone.now() - datetime.timedelta(days=30))
+        return self.pub_date >= (timezone.now() - datetime.timedelta(days=3))
 
     class Meta:
         verbose_name = 'Курс'

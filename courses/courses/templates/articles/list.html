@@ -4,14 +4,30 @@
 
 {% block content %}
 
+<h3>Каталог курсов:</h3>
+
     {% if latest_courses_list %}
         {% for a in latest_courses_list %}
-            <a href="{% url 'articles:detail' a.id %}"> {{a.course_title}}</a>
+            <p>
+            <a href="{% url 'articles:detail' a.id %}">{{a.id}}. {{a.course_title}}</a>
+            </p>
         {% endfor %}
 
     {% else %}
         Курсы не найдены
     {% endif %}
+
+<hr>
+<hr>
+
+<form action="{% url 'articles:search_course' %}" method="get">
+    {% csrf_token %}
+    <input type="text" required placeholder="Введите название курса для поиска" name="what_search"><br>
+    <button type="submit">Поиск</button>
+
+</form>
+
+<hr>
 
 
 {% endblock%}

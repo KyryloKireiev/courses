@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{course.course_title}}{% endblock %}
+
+{% block content %}
+
+<H2>{{course.course_title}}</H2>
+
+<p>{{course.course_text}}</p>
+
+<em>{{course.pub_date}}</em>
+
+{% if course.was_published_resently %}
+НОВЫЙ КУРС!!!
+{% endif %}
+
+<hr>
+{% if latest_comment_list %}
+    {% for c in latest_comment_list %}
+    <p>
+        <strong>{{c.author_name}}</strong>
+        <p>{{c.comment_text}}</p>
+    </p>
+    {% endfor%}
+{% else %}
+Комментарии не найдены!
+{% endif %}
+
+<hr>
+
+<form action="{% url 'articles:leave_comment' course.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" required placeholder="Ваше имя" name="name"><br>
+    <textarea name="text" required="" placeholder="Текст комментария" cols="30" rows="10"></textarea>
+    <button type="submit">Оставить комментарий</button>
+
+</form>
+
+<hr>
+<hr>
+
+<a href="{% url 'articles:index' %}"><h4>Вернуться к списку курсов</h4></a>
+
+{% endblock%}
