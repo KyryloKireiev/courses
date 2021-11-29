@@ -4,12 +4,15 @@
 
 {% block content %}
 
-<h3>Каталог курсов:</h3>
+<h2>Каталог курсов:</h2>
 
     {% if latest_courses_list %}
         {% for a in latest_courses_list %}
             <p>
             <a href="{% url 'articles:detail' a.id %}">{{a.id}}. {{a.course_title}}</a>
+                {% if a.was_published_resently %}
+                !!!НОВЫЙ КУРС!!!
+                {% endif %}
             </p>
         {% endfor %}
 
@@ -20,9 +23,27 @@
 <hr>
 <hr>
 
+<h3>Поиск курса по названию</h3>
 <form action="{% url 'articles:search_course' %}" method="get">
     {% csrf_token %}
     <input type="text" required placeholder="Введите название курса для поиска" name="what_search"><br>
+    <button type="submit">Поиск</button>
+
+</form>
+<hr>
+
+<h3>Фильтр по дате добавления</h3>
+
+<form action="{% url 'articles:date_filter' %}" method="get">
+    {% csrf_token %}
+    <h4>Начало поиска</h4>
+    <input type="text" required placeholder="Год" name="begin_year">
+    <input type="text" required placeholder="Месяц" name="begin_month">
+    <input type="text" required placeholder="День" name="begin_day"><br>
+    <h4>Конец поиска</h4>
+    <input type="text" required placeholder="Год" name="end_year">
+    <input type="text" required placeholder="Месяц" name="end_month">
+    <input type="text" required placeholder="День" name="end_day"><br>
     <button type="submit">Поиск</button>
 
 </form>

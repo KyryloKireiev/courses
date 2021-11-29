@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Фильтр по дате{% endblock %}
+
+{% block content %}
+
+<h3>Фильт курсов по дате добавления</h3>
+
+    {% if a %}
+        {% for i in a %}
+            <a href="{% url 'articles:detail' i.id %}">{{i}}</a>
+            <p>
+        {% endfor %}
+    {% else %}
+        Курсы не найдены
+    {% endif %}
+
+
+<hr>
+<hr>
+
+<a href="{% url 'articles:index' %}"><h4>Вернуться к списку курсов</h4></a>
+
+
+{% endblock%}
